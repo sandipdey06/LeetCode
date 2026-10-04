@@ -1,0 +1,7 @@
+class Solution(object):
+    def convertTemperature(self, celsius):
+        # str=[]
+        K= celsius + 273.15
+        F= celsius * 1.80 + 32.00 
+        # str.append(K,F)
+        return [K,F]
