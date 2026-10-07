@@ -1,0 +1,59 @@
+//FULL CHAT GPT CODE
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+
+        Set<String> ans = new HashSet<>();
+
+        int left = 0, right = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '(')
+                left++;
+            else if (c == ')') {
+                if (left > 0)
+                    left--;
+                else
+                    right++;
+            }
+        }
+
+        solve(s, 0, left, right, 0, new StringBuilder(), ans);
+
+        return new ArrayList<>(ans);
+    }
+
+    void solve(String s, int i, int left, int right, int open,
+               StringBuilder cur, Set<String> ans) {
+
+        if (i == s.length()) {
+            if (left == 0 && right == 0 && open == 0)
+                ans.add(cur.toString());
+            return;
+        }
+
+        char c = s.charAt(i);
+
+        // Remove current character
+        if (c == '(' && left > 0)
+            solve(s, i + 1, left - 1, right, open, cur, ans);
+
+        if (c == ')' && right > 0)
+            solve(s, i + 1, left, right - 1, open, cur, ans);
+
+        // Keep current character
+        cur.append(c);
+
+        if (c == '(') {
+            solve(s, i + 1, left, right, open + 1, cur, ans);
+        }
+        else if (c == ')') {
+            if (open > 0)
+                solve(s, i + 1, left, right, open - 1, cur, ans);
+        }
+        else {
+            solve(s, i + 1, left, right, open, cur, ans);
+        }
+
+        cur.deleteCharAt(cur.length() - 1);
+    }
+}
