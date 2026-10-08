@@ -1,0 +1,9 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        x=int(a,2) #converts the bin io a to its decimal value 
+        y=int(b,2)
+        return bin(x+y)[2:]
+        #(x+y) give the decimal output
+        #bin() converts it to its binary value "0b---"
+        #[2:] removes the first to unusual deigits of the digits and print the remaining one
+        

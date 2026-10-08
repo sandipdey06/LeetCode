@@ -1,0 +1,19 @@
+class Solution(object):
+    def removeOuterParentheses(self, s):
+        # for i in range(len(s)):
+        #     if not i=='()':
+        #         s.pop()
+        # return s
+        ans=""
+        count=0
+        for c in s:
+            if c=='(':
+                if count>0:
+                    ans+=c
+                count+= 1
+            else:
+                count-=1
+                if count>0:
+                    ans+=c
+        return ans
+        
