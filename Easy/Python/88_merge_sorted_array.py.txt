@@ -1,0 +1,12 @@
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        arr=[]
+        for i in range(m):
+            arr.append(nums1[i])
+        for i in range(n):
+            arr.append(nums2[i])
+        arr.sort()
+        #return arr
+        for i in range(m+n):
+            nums1[i]=arr[i]
+        return nums1
