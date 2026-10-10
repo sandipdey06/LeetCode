@@ -1,0 +1,24 @@
+
+class Solution(object):
+    def minSumSquareDiff(self, nums1, nums2, k1, k2):
+        diff = sorted([abs(a-b) for a, b in zip(nums1, nums2)], reverse=True)
+        k = k1 + k2
+
+        l, r = 0, max(diff)
+
+        while l < r:
+            mid = (l + r) // 2
+            if sum(max(0, x-mid) for x in diff) <= k:
+                r = mid
+            else:
+                l = mid + 1
+
+        ans = [min(x, l) for x in diff]
+        remaining = k - sum(max(0, x-l) for x in diff)
+
+        for i in range(len(ans)):
+            if remaining > 0 and ans[i] == l and l > 0:
+                ans[i] -= 1
+                remaining -= 1
+
+        return sum(x*x for x in ans)
