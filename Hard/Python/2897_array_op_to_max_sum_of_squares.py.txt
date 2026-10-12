@@ -1,0 +1,30 @@
+class Solution(object):
+    def maxSum(self, nums, k):
+        #mod=10**9+7
+        #ans=0
+        #for _ in range(k):
+        #   x=0
+        #   for i in range(32):
+        #       bit=1<<i  #left shift of binary num 1 by i positions 
+        #       for j in range(len(nums)):
+        #           if nums[j] & bit:
+        #               x|=bit   #bitwise OR operation
+        #               nums[j]-=bit
+        #               break
+        #   ans=(ans+x*x)%mod
+        #return ans
+        MOD = 10**9 + 7
+        ans = 0
+        bits = [0] * 32
+        for num in nums:
+            for i in range(32):
+                if num & (1 << i):
+                    bits[i] += 1
+        for _ in range(k):
+            x = 0
+            for i in range(32):
+                if bits[i] > 0:
+                    x |= (1 << i)
+                    bits[i] -= 1
+            ans = (ans + x * x) % MOD
+        return ans
