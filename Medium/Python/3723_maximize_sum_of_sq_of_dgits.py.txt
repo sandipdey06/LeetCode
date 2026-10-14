@@ -1,0 +1,10 @@
+class Solution(object):
+    def maxSumOfSquares(self, num, sum):
+        if sum>9*num: #Agar sum 9 × num se zyada hai, toh answer possible nahi hai.
+            return ""
+        ans=""
+        for i in range(num):
+            digit=min(9,sum)  #Har step par min(9, sum) se maximum possible digit choose karte hain.
+            ans+=str(digit)
+            sum-=digit
+        return ans
