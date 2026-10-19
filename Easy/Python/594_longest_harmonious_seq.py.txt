@@ -1,0 +1,11 @@
+class Solution(object):
+    def findLHS(self, nums):
+        #harmonious seq: max_element-min_element==1
+        count={}
+        for i in nums:
+            count[i]=count.get(i,0)+1
+        ans=0
+        for i in count:
+            if i+1 in count:
+                ans=max(ans,count[i]+count[i+1])
+        return ans
