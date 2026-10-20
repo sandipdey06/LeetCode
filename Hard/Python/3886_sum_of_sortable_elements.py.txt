@@ -1,0 +1,45 @@
+class Solution(object):
+    def sortableIntegers(self, nums):
+        n = len(nums)
+
+        pref = [0] * (n + 1)
+        suff = [10**9] * (n + 1)
+        drop = [0] * n
+
+        for i in range(n):
+            pref[i + 1] = max(pref[i], nums[i])
+
+        for i in range(n - 1, -1, -1):
+            suff[i] = min(nums[i], suff[i + 1])
+
+        for i in range(1, n):
+            drop[i] = drop[i - 1] + (nums[i - 1] > nums[i])
+
+        def check(k):
+            for s in range(0, n, k):
+                e = s + k - 1
+                d = drop[e] - drop[s]
+
+                if nums[e] > nums[s]:
+                    d += 1
+
+                if d > 1 or pref[s] > suff[s]:
+                    return False
+
+            return True
+
+        ans = 0
+        i = 1
+
+        while i * i <= n:
+            if n % i == 0:
+                if check(i):
+                    ans += i
+
+                j = n // i
+                if j != i and check(j):
+                    ans += j
+
+            i += 1
+
+        return ans
