@@ -1,0 +1,9 @@
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        #ransomNote = jis string ko banana hai.
+        #magazine = jiske letters use karke string banani hai.
+        for ch in ransomNote:
+            if ch not in magazine:
+                return False
+            magazine=magazine.replace(ch,"",1)
+        return True
