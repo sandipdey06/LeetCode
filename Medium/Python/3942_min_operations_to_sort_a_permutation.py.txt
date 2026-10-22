@@ -1,0 +1,40 @@
+#class Solution(object):
+#    def minOperations(self, nums):
+#        n=len(nums)
+#          if nums==list(range(n)):
+ #           return 0
+  #      for k in range(n):
+   #         arr=nums[k:]+nums[:k]
+    #        if arr==list(range(n)):
+     ##      arr=arr[::-1]
+       #     if arr==list(range(n)):
+        #        return k+1
+        #return -1
+
+class Solution(object):
+    def minOperations(self, nums):
+        n = len(nums)
+        zero = nums.index(0)
+
+        inc = True
+        dec = True
+
+        for i in range(1, n):
+            x = nums[(zero + i) % n]
+
+            if x != i:
+                inc = False
+
+            if x != n - i:
+                dec = False
+
+        ans = float('inf')
+
+        if inc:
+            ans = min(ans, zero, n - zero + 2)
+
+        if dec:
+            ans = min(ans, zero + 2, n - zero)
+
+        return -1 if ans == float('inf') else ans
+
