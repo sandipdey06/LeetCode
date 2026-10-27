@@ -1,0 +1,13 @@
+class Solution(object):
+    def createGrid(self, m, n):
+        grid = [['#'] * n for i in range(m)]
+        if m == 1:
+            return ['.' * n]
+        if n == 1:
+            return ['.'] * m
+        for j in range(n - 1):
+            grid[0][j] = '.'
+        for i in range(m):
+            grid[i][n - 2] = '.'
+        grid[m - 1][n - 1] = '.'
+        return [''.join(row) for row in grid]
