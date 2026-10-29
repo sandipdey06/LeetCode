@@ -1,0 +1,47 @@
+class Solution(object):
+    def palindromePath(self, n, edges, s, queries):
+        from collections import defaultdict, deque
+
+        graph = defaultdict(list)
+
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+
+        ans = []
+
+        for q in queries:
+            parts = q.split()
+            u = int(parts[1])
+
+            if parts[0] == "update":
+                s = s[:u] + parts[2] + s[u + 1:]
+            else:
+                v = int(parts[2])
+                parent = {u: -1}
+                queue = deque([u])
+
+                while queue and v not in parent:
+                    x = queue.popleft()
+                    for y in graph[x]:
+                        if y not in parent:
+                            parent[y] = x
+                            queue.append(y)
+
+                chars = []
+                x = v
+
+                while x != -1:
+                    chars.append(s[x])
+                    if x == u:
+                        break
+                    x = parent[x]
+
+                odd = 0
+                for c in set(chars):
+                    if chars.count(c) % 2:
+                        odd += 1
+
+                ans.append(odd <= 1)
+
+        return ans
