@@ -1,0 +1,13 @@
+
+class Solution(object):
+    def mostCommonWord(self, paragraph, banned):
+        words = paragraph.lower().replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", " ").split()
+
+        banned = set(banned)
+        count = {}
+
+        for word in words:
+            if word not in banned:
+                count[word] = count.get(word, 0) + 1
+
+        return max(count, key=count.get)
