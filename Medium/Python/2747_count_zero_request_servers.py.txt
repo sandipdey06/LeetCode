@@ -1,0 +1,25 @@
+class Solution(object):
+    def countServers(self,n,logs,x,queries):
+        logs.sort(key=lambda a:a[1])
+        q=sorted((val,i) for i, val in enumerate(queries))
+        count=[0]*(n+1)
+        ans=[0]*len(queries)
+        left=right=active=0
+        for val, idx in q:
+            while right<len(logs) and logs[right][1]<=val:
+                s =logs[right][0]
+                if count[s] == 0:
+                    active += 1
+                count[s] += 1
+                right += 1
+
+            while left < right and logs[left][1] < val - x:
+                s = logs[left][0]
+                count[s] -= 1
+                if count[s] == 0:
+                    active -= 1
+                left += 1
+
+            ans[idx] = n - active
+
+        return ans
