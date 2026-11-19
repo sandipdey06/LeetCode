@@ -1,0 +1,11 @@
+class Solution(object):
+    def minimizeSum(self, nums):
+        #mini=min(nums)
+        #secmini=nums[0]
+        #for i in nums:
+        #    if i>mini and i<secmini:
+        #        secmini=i
+        #return (int)(secmini-mini)
+        nums.sort()
+        #return nums[1]-nums[0]
+        return min(nums[-1]-nums[2], nums[-2]-nums[1], nums[-3]-nums[0])
