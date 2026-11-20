@@ -1,0 +1,15 @@
+class Solution(object):
+    def letterCombinations(self, digits):
+        if not digits:
+            return []
+        p=["","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"]
+        a=[""]
+        for d in digits:
+            temp=[]
+            for s in a:
+                for c in p[int(d)]:
+                    temp.append(s+c)
+            a=temp
+        return a
+
+        
