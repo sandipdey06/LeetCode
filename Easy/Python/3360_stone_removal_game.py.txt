@@ -1,0 +1,9 @@
+class Solution:
+    def canAliceWin(self, n):
+        x=10
+        while n>=x:
+            n-=x
+            x-=1
+        return x%2==1
+
+        
