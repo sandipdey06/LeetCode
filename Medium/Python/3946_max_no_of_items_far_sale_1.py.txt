@@ -1,0 +1,9 @@
+class Solution:
+    def maximumSaleItems(self, items, budget):
+        dp=[0]*(budget+1)
+        mn=min(p for f,p in items)
+        for f,p in items:
+            cnt=sum(x%f==0 for x,y in items)
+            for j in range(budget,p-1,-1):
+                dp[j]=max(dp[j],dp[j-p]+cnt)
+        return max(dp[i]+(budget-i)//mn for i in range(budget+1))
