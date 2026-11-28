@@ -1,0 +1,14 @@
+from collections import Counter
+class Solution(object):
+    def hasGroupsSizeX(self, deck):
+        #return all(deck.count(x) % 2 == 0 for x in deck)
+        freq=list(Counter(deck).values())
+        def gcd(a,b):
+            while b:
+                a,b=b,a%b
+            return a
+        g=freq[0]
+        for x in freq[1:]:
+            g=gcd(g,x)
+        return g>=2
+        
