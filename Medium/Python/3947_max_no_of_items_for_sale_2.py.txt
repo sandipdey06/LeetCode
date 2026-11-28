@@ -1,0 +1,39 @@
+class Solution:
+    def maximumSaleItems(self, items, budget):
+        #items.sort(key=lambda x:x[1])
+        #ans=0
+        #for factor,price in items:
+        #    if budget<price:
+        #        continue
+        #    count=budget//price
+        #    ans+=count
+        #    budget-=count*price
+        #return ans
+        n = len(items)
+        freq = [0] * (n + 1)
+        mn = min(p for f, p in items)
+
+        for f, p in items:
+            freq[f] += 1
+
+        gain = [0] * (n + 1)
+
+        for i in range(1, n + 1):
+            for j in range(i, n + 1, i):
+                gain[i] += freq[j]
+            gain[i] -= 1
+
+        deals = []
+        for f, p in items:
+            if gain[f] > 0 and p < 2 * mn:
+                deals.append((p, gain[f]))
+
+        deals.sort()
+
+        ans = 0
+        for p, g in deals:
+            c = min(g, budget // p)
+            ans += 2 * c
+            budget -= p * c
+
+        return ans + budget // mn
